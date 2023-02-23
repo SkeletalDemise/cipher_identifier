@@ -1,0 +1,26 @@
+{
+	"6x6bifid": {
+		"types": ["substitution"],
+		"subtypes": ["polygraphic"],
+		"subtypes2": ["fractionation"],
+		"table": ["polybius square"],
+		"size": "6x6",
+		"notes": "The 6x6 Bifid cipher is a variant of the Bifid cipher, which uses a 6x6 grid instead of a 5x5 grid. It is also known as the 'Bigram Bifid' cipher."
+	},
+	"6x6playfair": {
+		"types": ["substitution"],
+		"subtypes": ["polygraphic"],
+		"subtypes2": [],
+		"table": ["polybius square"],
+		"size": "6x6",
+		"notes": "The 6x6 Playfair cipher is a variant of the Playfair cipher, which uses a 6x6 grid instead of a 5x5 grid."
+	},
+	"Autokey": {
+		"types": ["substitution"],
+		"subtypes": ["polyalphabetic"],
+		"subtypes2": [],
+		"table": ["tabula recta"],
+		"size": "variable",
+		"notes": "The Autokey cipher is a variant of the Vigenère cipher, which uses the plaintext as the key."
+	},
+}
