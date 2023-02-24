@@ -5,7 +5,7 @@
 		"subtypes2": ["fractionation"],
 		"table": ["polybius square"],
 		"size": "6x6",
-		"notes": "The 6x6 Bifid cipher is a variant of the Bifid cipher, which uses a 6x6 grid instead of a 5x5 grid. It is also known as the 'Bigram Bifid' cipher."
+		"notes": "The 6x6 Bifid cipher is a variant of the Bifid cipher, which uses a 6x6 grid instead of a 5x5 grid."
 	},
 	"6x6playfair": {
 		"types": ["substitution"],
@@ -23,4 +23,5 @@
 		"size": "variable",
 		"notes": "The Autokey cipher is a variant of the Vigenère cipher, which uses the plaintext as the key."
 	},
+	"Bazeries": {}
 }

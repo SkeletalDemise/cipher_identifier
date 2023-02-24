@@ -24,7 +24,16 @@ console = Console()
     help="The ciphertext you want to analyze.",
     type=str,
 )
-@click.option("-n", "--number", help="The top n most likely ciphers to display.", default=5, type=click.IntRange(1, 58))
+@click.option(
+    "-n",
+    "--number",
+    help="The top n most likely ciphers to display.",
+    default=5,
+    type=click.IntRange(1, 58),
+)
+@click.option(
+    "-c", "--cipher", help="Highlight a specific cipher in the list.", type=str
+)
 @click.option("-v", "--verbose", count=True, type=int)
 @click.option("-f", "--file", type=click.File("rb"), required=False)
 def main(**kwargs):
@@ -39,7 +48,7 @@ def main(**kwargs):
 
     kwargs["text"] = re.sub(r"\s+", "", kwargs["text"].upper())
     basic_stats(kwargs["text"])
-    identify_cipher(kwargs["text"], kwargs["number"])
+    identify_cipher(kwargs["text"], kwargs["number"], kwargs["cipher"])
 
 
 def find_missing_letters(text):
@@ -68,10 +77,22 @@ def basic_stats(text):
     console.print(table)
 
 
-def identify_cipher(text, number):
+def identify_cipher(text, number, highlight):
+    # fmt: off
     ciphers = ["6x6bifid", "6x6playfair", "Autokey", "Bazeries", "Beaufort", "CONDI", "Grandpre", "Grandpre10x10", "Gromark", "NihilistSub6x6", "Patristocrat", "Quagmire I", "Quagmire II", "Quagmire III", "Quagmire IV", "Slidefair", "Swagman", "Variant", "Vigenere", "amsco", "bifid", "cadenus", "checkerboard", "cmBifid", "columnar", "compressocrat", "digrafid", "foursquare", "fractionatedMorse", "grille", "homophonic", "keyphrase", "monomeDinome", "morbit", "myszkowski", "nicodemus", "nihilistSub", "nihilistTramp", "numberedKey", "periodicGromark", "phillips", "playfair", "pollux", "porta", "portax", "progressiveKey", "ragbaby", "redefence", "routeTramp", "runningKey", "sequenceTramp", "seriatedPlayfair", "simplesubstitution", "syllabary", "tridigital", "trifid", "trisquare", "twosquare"]
+    # fmt: on
     stats = all_stats.get_all_stats(text)
-    scores = [stats["IoC"], stats["MIC"], stats["MKA"], stats["DIC"], stats["EDI"], stats["LR"], stats["ROD"], stats["LDI"], stats["SDD"]]
+    scores = [
+        stats["IoC"],
+        stats["MIC"],
+        stats["MKA"],
+        stats["DIC"],
+        stats["EDI"],
+        stats["LR"],
+        stats["ROD"],
+        stats["LDI"],
+        stats["SDD"],
+    ]
     num_dev = get_cipher(scores, ciphers)
     num_dev = sorted(num_dev, key=operator.itemgetter(1))
 
@@ -80,8 +101,15 @@ def identify_cipher(text, number):
     table.add_column("Score", justify="center", style="sky_blue1")
     table.add_column("Cipher type", justify="center", style="green")
     for i in range(number):
-        table.add_row(num_dev[i][0], str(round(num_dev[i][1], 3)))
-        #table.add_row(get_cipher_type(num_dev[i][0]))
+        cipher = num_dev[i][0]
+        score = str(round(num_dev[i][1], 3))
+        if cipher == highlight:
+            table.add_row(
+                f"[bold][purple]{cipher}[/purple][/bold]",
+                f"[bold][purple]{score}[/purple][/bold]",
+            )
+        else:
+            table.add_row(cipher, score)
     console.print(table)
 
 
