@@ -22,7 +22,7 @@ from statistical_tests import (
 
 
 algos = {
-    "IoC": ioc.get_ioc,
+    "IOC": ioc.get_ioc,
     "MIC": mic.get_max_periodic_ic,
     "MKA": mka.get_kappa,
     "DIC": dic.get_dic,

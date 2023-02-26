@@ -2,11 +2,10 @@
 Benchmark cipher identification accuracy
 """
 
-import json
 import operator
-
 from identify_cipher import get_cipher
 from statistical_tests import all_stats
+import json
 
 
 def benchmark():
@@ -38,7 +37,7 @@ def benchmark():
         num_dev = sorted(num_dev, key=operator.itemgetter(1))
 
         # see if correct cipher is in top 5
-        for guess in num_dev[:1]:
+        for guess in num_dev[:5]:
             if guess[0] == item["ciphertype"]:
                 correct += 1
     total_ciphertexts = len(data)
